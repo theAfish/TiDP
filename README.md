@@ -4,6 +4,9 @@ This is an under-developed code for interactive DeepMD visualizing and deep pote
 
 <img src="https://github.com/theAfish/TiDP/blob/main/show.png" align="center" width="1000">
 
+Animation example showing what can be done with TiDP:
+<img src="https://github.com/theAfish/TiDP/blob/main/Animation.gif" align="center" width="1000">
+
 # Dependencies
 
 This code depends on three main module: `taichi`, `deepmd-kit`, `ase` and `matplotlib`. The code is currently only tested on Windows 10 and Ubuntu.
