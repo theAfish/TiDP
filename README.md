@@ -31,6 +31,16 @@ This code depends on four main module: [Taichi](https://github.com/taichi-dev/ta
 
 **Please notice** that if you are using TiDP on Windows with non-development version of deepmd-kit python interface (e.g. deepmd-kit 2.1.5), please manually adjusting your `deepmd/infer/deep_eval.py` file according to https://github.com/deepmodeling/deepmd-kit/pull/2054
 
+### How to setup a simulation environment with pycharm:
+1. Create a new project with Python3.10
+2. pip install taichi
+3. pip install matplotlib
+4. pip install tensorflow
+5. pip install ase
+6. pip install deepmd-kit --no-binary deepmd-kit
+7. adjusting the files according to [this url](https://github.com/deepmodeling/deepmd-kit/pull/2054)
+8. Run your code
+
 ## Code Structure
 
 The code is organized as follows:
