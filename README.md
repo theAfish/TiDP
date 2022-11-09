@@ -2,7 +2,10 @@
 
 This is an under-developed code for interactive DeepMD visualizing and deep potential quality checking.
 
-<img src="https://github.com/theAfish/TiDP/blob/main/show.png" align="center" width="1000">
+<p align="center">
+  <img src="https://github.com/theAfish/TiDP/blob/main/show.png" align="center" width="500">
+</p>
+
 
 Animation example showing what can be done with TiDP:
 
