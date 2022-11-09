@@ -16,3 +16,7 @@ The code is organized as follows:
 
 * ``TaichiDeepPot/tidp.py``: main class of TiDP.
 * ``main.py``: an example usage of TiDP
+
+# Features
+1. Running simple molecular dynamics simulation with deep potential file (TODO: adding thermostat)
+2. Using probe atom to interactively check model deviation of deep potential files.
