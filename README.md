@@ -8,13 +8,16 @@ This is an under-developed code for interactive DeepMD visualizing and deep pote
 
 ## Attention
 
-This code is higly under-developed and the author has zero experience of developing a software, so there are still problems:
+This code is higly under-developed and the author has zero experience of software developing, so there are still plenties of problems:
 
 1. Currently only 3 colors (red, green and blue) are supported for showing the atoms, and only a few atomic masses are recorded.
 2. Cannot set radius for different atoms.
 3. No thermostat has been implemented yet, so the MD simulation cannot be stable and usful.
 4. Periodic boundary condition for non-orthogonal cells behaves unproperly.
 5. float32 accuracy supported.
+6. ...
+
+Feel free to changing the code if you have ideas or suggestions on the code structure or functions ;)
 
 ## Examples
 
