@@ -6,6 +6,15 @@ This is an under-developed code for interactive DeepMD visualizing and deep pote
   <img src="https://github.com/theAfish/TiDP/blob/main/show.png" align="center" width="500">
 </p>
 
+## Attention
+
+This code is higly under-developed and the author has zero experience of developing a software, so there are still problems:
+
+1. Currently only 3 colors (red, green and blue) are supported for showing the atoms, and only a few atomic masses are recorded.
+2. Cannot set radius for different atoms.
+3. No thermostat has been implemented yet, so the MD simulation cannot be stable and usful.
+4. Periodic boundary condition for non-orthogonal cells behaves unproperly.
+
 ## Examples
 
 Animation example showing what can be done with TiDP:
