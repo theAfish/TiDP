@@ -72,6 +72,12 @@ class TiDP:
                 self.color[i] = [0, 0, 1]
 
     def set_prob_atom(self, index):
+        '''
+        Setting the probe atom for interactive model deviation test.
+        
+        :param index: integer, the index of the probe atom
+        :return: 
+        '''
         self.probe_atom = index
 
     def set_type_map(self, type_map):
