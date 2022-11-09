@@ -34,7 +34,7 @@ This code depends on four main module: [Taichi](https://github.com/taichi-dev/ta
 ### How to setup a simulation environment with pycharm:
 
 1. Create a new project with Python3.10
-2. pip install taichi, matplotlib, tensorflow ase
+2. pip install taichi, matplotlib, tensorflow and ase
 3. pip install deepmd-kit --no-binary deepmd-kit
 4. adjusting deepmd-kit according to [this url](https://github.com/deepmodeling/deepmd-kit/pull/2054)
 5. Run your code
