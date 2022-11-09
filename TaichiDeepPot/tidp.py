@@ -10,6 +10,9 @@ import ase.io
 atomic_mass = {'H': 1.007825, 'C': 12.01, 'O': 15.9994, 'N': 14.0067, 'S': 31.972071, 'P': 30.973762, 'I': 126.90447,
                'Cs': 132.905, 'Pb': 207.2}
 
+arch = ti.vulkan if ti._lib.core.with_vulkan() else ti.cuda
+ti.init(arch=arch)
+
 @ti.data_oriented
 class TiDP:
     def __init__(self, res=(512, 512), structure=None, graphs=None, type_map=None, dt=2e-1):
