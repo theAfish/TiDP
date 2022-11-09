@@ -1,5 +1,6 @@
 from TaichiDeepPot.tidp import TiDP as td
 
+# initialize the simulation. 
 mdl = td(graphs=["graphs/graph.000.pb", "graphs/graph.001.pb", "graphs/graph.002.pb", "graphs/graph.003.pb"],
          structure="poscars/pbi2.poscar",
          type_map={"I": 0, "Pb": 2},
