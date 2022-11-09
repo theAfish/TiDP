@@ -14,7 +14,7 @@ Animation example showing what can be done with TiDP:
 
 ## Dependencies
 
-This code depends on three main module: `taichi`, `deepmd-kit`, `ase` and `matplotlib`. The code is currently only tested on Windows 10 and Ubuntu.
+This code depends on four main module: [Taichi](https://github.com/taichi-dev/taichi), [DeepMD-kit](https://github.com/deepmodeling/deepmd-kit), [Atomic Simulation Environment](https://gitlab.com/ase/ase) and [matplotlib](https://github.com/matplotlib/matplotlib). The code is currently only tested on Windows 10 and Ubuntu.
 
 **Please notice** that if you are using TiDP on Windows with non-development version of deepmd-kit python interface (e.g. deepmd-kit 2.1.5), please manually adjusting your `deepmd/infer/deep_eval.py` file according to https://github.com/deepmodeling/deepmd-kit/pull/2054
 
