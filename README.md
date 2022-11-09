@@ -21,7 +21,7 @@ Feel free to changing the code if you have ideas or suggestions on the code stru
 
 ## Examples
 
-Animation example showing what can be done with TiDP:
+An animation example showing what can be done with TiDP:
 
 <img src="https://github.com/theAfish/TiDP/blob/main/Animation.gif" align="center" width="1000">
 
