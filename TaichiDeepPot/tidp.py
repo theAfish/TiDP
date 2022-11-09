@@ -105,7 +105,7 @@ class TiDP:
         self.scene.set_camera(self.camera)
         self.scene.ambient_light((0.2, 0.2, 0.2))
         self.scene.particles(self.x_draw, per_vertex_color=self.color, radius=0.5)
-        self.scene.point_light(pos=(5, 20, 11), color=(0.6, 0.6, 0.6))
+        self.scene.point_light(pos=self.camera.curr_position, color=(0.6, 0.6, 0.6))
         self.scene.lines(self.box_edge, width=1., color=(1, 1, 1))
         self.canvas.scene(self.scene)
 
@@ -140,7 +140,7 @@ class TiDP:
     # For interactive checking. TODO: Probe atom and Matplotlib
     def show(self):
         plt.ion()
-        figure, ax = plt.subplots(figsize=(8, 6))
+        figure, ax = plt.subplots(figsize=(7, 4.7))
         line1, = ax.plot(np.array(self.probe_step), np.array(self.probe_d_f))
         plt.title("Model Deviation", fontsize=20)
         plt.xlabel("Step")
