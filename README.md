@@ -36,7 +36,7 @@ This code depends on four main module: [Taichi](https://github.com/taichi-dev/ta
 1. Create a new project with Python3.10
 2. pip install taichi, matplotlib, tensorflow and ase
 3. pip install deepmd-kit --no-binary deepmd-kit
-4. adjusting deepmd-kit according to [this url](https://github.com/deepmodeling/deepmd-kit/pull/2054)
+4. adjusting deepmd-kit according to [this url](https://github.com/deepmodeling/deepmd-kit/pull/2054) if your system is Windows 10.
 5. Run your code
 
 ## Code Structure
