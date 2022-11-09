@@ -14,6 +14,7 @@ This code is higly under-developed and the author has zero experience of develop
 2. Cannot set radius for different atoms.
 3. No thermostat has been implemented yet, so the MD simulation cannot be stable and usful.
 4. Periodic boundary condition for non-orthogonal cells behaves unproperly.
+5. float32 accuracy supported.
 
 ## Examples
 
