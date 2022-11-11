@@ -1,17 +1,21 @@
 import taichi as ti
 import numpy as np
 import matplotlib.pyplot as plt
-from enum import Enum
 from deepmd.infer import DeepPot as DP
 from deepmd.infer import calc_model_devi
 from collections import Counter
 import ase.io
 
-atomic_mass = {'H': 1.007825, 'C': 12.01, 'O': 15.9994, 'N': 14.0067, 'S': 31.972071, 'P': 30.973762, 'I': 126.90447,
-               'Cs': 132.905, 'Pb': 207.2}
+atomic_mass = {'X': 1.0, 'H': 1.007825, 'C': 12.01, 'O': 15.9994, 'N': 14.0067, 'S': 31.972071, 'P': 30.973762,
+               'I': 126.90447, 'Cs': 132.905, 'Pb': 207.2}
+
+atomic_color = {'X': (1., 1., 1.), 'H': (1., 1., 1.), 'C': (0.56, 0.56, 0.56), 'O': (1., 0.05, 0.05),
+                'N': (0.19, 0.31, 0.97), 'S': (0.7, 0.7, 0.), 'P': (1., 0.5, 0.), 'I': (0.58, 0., 0.58),
+                'Cs': (0.34, 0.09, 0.56), 'Pb': (0.34, 0.35, 0.38)}
 
 arch = ti.vulkan if ti._lib.core.with_vulkan() else ti.cuda
 ti.init(arch=arch)
+
 
 @ti.data_oriented
 class TiDP:
@@ -55,28 +59,31 @@ class TiDP:
         _type = np.array([self.type_map[i] for i in self.structure.get_chemical_symbols()])
         self.atoms.type.from_numpy(_type)
         self.atoms.position.from_numpy(np.array(self.structure.positions, dtype=np.float32))
-        self.atoms.mass.from_numpy(np.array([atomic_mass[i] for i in self.structure.get_chemical_symbols()], dtype=np.float32))
+        self.atoms.mass.from_numpy(
+            np.array([atomic_mass[i] for i in self.structure.get_chemical_symbols()], dtype=np.float32))
         self.cell.from_numpy(np.array(self.structure.cell.array, dtype=np.float32))
 
         self.init_atom_color()
-        self.set_camera([20,30,40], self.structure.get_center_of_mass())
+        self.set_camera([20, 30, 40], self.structure.get_center_of_mass())
 
-    @ti.kernel
     def init_atom_color(self):
-        for i in self.color:
-            if self.atoms.type[i] == 0:
-                self.color[i] = [1, 0, 0]
-            elif self.atoms.type[i] == 1:
-                self.color[i] = [0, 1, 0]
-            else:
-                self.color[i] = [0, 0, 1]
+        _color = []
+        for i in self.structure.get_chemical_symbols():
+            try:
+                _color.append(atomic_color[i])
+            except:
+                print("Sorry, the color for {} is not defined currently, or maybe a typo? Set color to (1.0, 1.0, "
+                      "1.0) for {}".format(i, i))
+                _color.append(atomic_color['X'])
+        self.color.from_numpy(
+            np.array(_color, dtype=np.float32))
 
     def set_prob_atom(self, index):
         '''
         Setting the probe atom for interactive model deviation test.
-        
+
         :param index: integer, the index of the probe atom
-        :return: 
+        :return:
         '''
         self.probe_atom = index
 
@@ -92,13 +99,15 @@ class TiDP:
         self.atom_numbers = atoms.get_global_number_of_atoms()
         self.atom_species = len(Counter(atoms.get_atomic_numbers()))
         self.structure = atoms
-        self.ax = atoms.get_cell().array[0,0]
-        self.by = atoms.get_cell().array[1,1]
-        self.cz = atoms.get_cell().array[2,2]
+        self.ax = atoms.get_cell().array[0, 0]
+        self.by = atoms.get_cell().array[1, 1]
+        self.cz = atoms.get_cell().array[2, 2]
 
     def set_box(self):
-        idx = [[0, 0, 0], [1, 0, 0], [0, 0, 0], [0, 1, 0], [0, 0, 0], [0, 0, 1], [1, 0, 0], [1, 1, 0], [1, 0, 0], [1, 0, 1], [0, 1, 0], [1, 1, 0],
-               [0, 1, 0], [0, 1, 1], [0, 0, 1], [1, 0, 1], [0, 0, 1], [0, 1, 1], [1, 1, 0], [1, 1, 1], [0, 1, 1], [1, 1, 1], [1, 0, 1], [1, 1, 1]]
+        idx = [[0, 0, 0], [1, 0, 0], [0, 0, 0], [0, 1, 0], [0, 0, 0], [0, 0, 1], [1, 0, 0], [1, 1, 0], [1, 0, 0],
+               [1, 0, 1], [0, 1, 0], [1, 1, 0],
+               [0, 1, 0], [0, 1, 1], [0, 0, 1], [1, 0, 1], [0, 0, 1], [0, 1, 1], [1, 1, 0], [1, 1, 1], [0, 1, 1],
+               [1, 1, 1], [1, 0, 1], [1, 1, 1]]
         _box_edge = np.array(idx, dtype=np.float32) @ np.array(self.structure.cell.array, dtype=np.float32)
         self.box_edge.from_numpy(_box_edge)
 
@@ -178,7 +187,8 @@ class TiDP:
             self.atoms.position[i] += self.atoms.velocity[i] * self.dt
             self.atoms.velocity[i] += self.atoms.force[i] / self.atoms.mass[i] * self.dt
             for j in ti.static(range(3)):
-                self.atoms.position[i][j] -= self.cell[j].norm() * ti.round(self.atoms.position[i][j] / self.cell[j].norm() - 0.5)
+                self.atoms.position[i][j] -= self.cell[j].norm() * ti.round(
+                    self.atoms.position[i][j] / self.cell[j].norm() - 0.5)
 
     def run(self):
         substep = 1
