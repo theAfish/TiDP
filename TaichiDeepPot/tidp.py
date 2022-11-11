@@ -63,20 +63,22 @@ class TiDP:
             np.array([atomic_mass[i] for i in self.structure.get_chemical_symbols()], dtype=np.float32))
         self.cell.from_numpy(np.array(self.structure.cell.array, dtype=np.float32))
 
-        self.init_atom_color()
+        self.init_atomic_properties()
         self.set_camera([20, 30, 40], self.structure.get_center_of_mass())
 
-    def init_atom_color(self):
+    def init_atomic_properties(self):
         _color = []
+        _mass = []
         for i in self.structure.get_chemical_symbols():
             try:
                 _color.append(atomic_color[i])
+                _mass.append(atomic_mass[i])
             except:
-                print("Sorry, the color for {} is not defined currently, or maybe a typo? Set color to (1.0, 1.0, "
-                      "1.0) for {}".format(i, i))
+                print("Sorry, {} atom is not implemented currently, or maybe a typo? Set to value \"X\" for {}".format(i, i))
                 _color.append(atomic_color['X'])
-        self.color.from_numpy(
-            np.array(_color, dtype=np.float32))
+                _mass.append(atomic_mass['X'])
+        self.color.from_numpy(np.array(_color, dtype=np.float32))
+        self.atoms.mass.from_numpy(np.array(_mass, dtype=np.float32))
 
     def set_prob_atom(self, index):
         '''
