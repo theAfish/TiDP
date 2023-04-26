@@ -1,4 +1,3 @@
 taichi
-deepmd-kit
 matplotlib
 ase
